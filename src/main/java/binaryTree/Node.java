@@ -4,7 +4,7 @@
  * Copyright (c) 2010 - 2018 jianlin.Pang. All rights reserved.
  * 
  */
-package main.java;
+package main.java.binaryTree;
 
 public class Node {
 

@@ -1,38 +1,40 @@
 /**
- * Consumer.java   2018年6月19日 上午11:07:00 by PANGJIANLIN 
+ * Producer.java   2018年6月19日 上午11:06:26 by PANGJIANLIN 
  *
  * Copyright (c) 2010 - 2018 jianlin.Pang. All rights reserved.
  * 
  */
-package main.java;
+package main.java.producerConsunerDemo;
 
 import java.util.Queue;
 
-public class Consumer extends Thread {
+public class Producer extends Thread {
 
+    private static final int MAX_QUEUE_SIZE = 5;
     @SuppressWarnings("rawtypes")
     private final Queue sharedQueue;
 
     @SuppressWarnings("rawtypes")
-    public Consumer(Queue sharedQueue) {
+    public Producer(Queue sharedQueue) {
         super();
         this.sharedQueue = sharedQueue;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < 20; i++) {
             synchronized (sharedQueue) {
-                while (sharedQueue.size() == 0) {
+                while (sharedQueue.size() >= MAX_QUEUE_SIZE) {
+                    System.out.println("队列满了，等待消费");
                     try {
-                        System.out.println("队列空了，等待生产");
                         sharedQueue.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                int number = Integer.valueOf(sharedQueue.poll().toString());
-                System.out.println("进行消费 : " + number);
+                sharedQueue.add(i);
+                System.out.println("进行生产 : " + i);
                 sharedQueue.notify();
             }
         }

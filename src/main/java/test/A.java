@@ -4,7 +4,7 @@
  * Copyright (c) 2010 - 2019 jianlin.Pang. All rights reserved.
  * 
  */
-package main.java;
+package main.java.test;
 
 import java.io.Serializable;
 import java.util.ArrayList;
